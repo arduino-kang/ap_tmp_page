@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!-- 
+  Rui Santos
+  Complete project details at https://RandomNerdTutorials.com  
+-->
+<html>
+<head>
+  <title>Temperal AP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>Temperal AP</h1>
+  <p>
+    <button class="button" onclick="getAP()">Get AP</button></a>
+    <button class="button button2" onclick="setAP()">Set AP</button></a>
+  </p>
+  <p>
+    <span class="labels">SSID:</span>
+    <input class="labels" id="ssidInput" />
+  </p>
+  <p>
+    <span class="labels">Password:</span>
+    <input class="labels" id="pwdInput" style="width: 240px"/>
+  </p>
+</body>
+<script>
+
+  getAP();
+  
+  function getAP(){
+    console.log('Get AP');
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
+        var AP = JSON.parse(this.responseText);
+        console.log(AP);
+        document.getElementById("ssidInput").value = AP.SSID;
+        document.getElementById("pwdInput").value = AP.PWD;
+      }
+    };
+    xhttp.open("GET", "https://deploy-ap-api.herokuapp.com/?getAP", true);
+    xhttp.send();    
+  }
+
+  function setAP(){
+    console.log('Set AP');
+    var url = "https://deploy-ap-api.herokuapp.com/?setAP" +
+              "&SSID=" + document.getElementById("ssidInput").value +
+              "&PWD="  + document.getElementById("pwdInput").value;
+        
+    console.log(url);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
+      }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.send();    
+  }
+
+
+</script>
+</html>
