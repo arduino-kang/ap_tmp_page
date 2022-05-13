@@ -24,44 +24,60 @@
     <span class="labels">Password:</span>
     <input class="labels" id="pwdInput" style="width: 240px"/>
   </p>
+  <p>
+    <span class="labels">DATA1:</span>
+    <input class="labels" id="data1Input" />
+  </p>
+  <p>
+    <span class="labels">DATA2:</span>
+    <input class="labels" id="data2Input" />
+  </p>
+  <p>
+    <span class="labels">DATA3:</span>
+    <input class="labels" id="data3Input" />
+  </p>  
+  <script>
+    getAP();
+
+    function getAP(){
+      console.log('Get AP');
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText);
+          var AP = JSON.parse(this.responseText);
+          console.log(AP);
+          document.getElementById("ssidInput").value  = AP.SSID;
+          document.getElementById("pwdInput").value   = AP.PWD;
+          document.getElementById("data1Input").value = AP.DATA1;
+          document.getElementById("data2Input").value = AP.DATA2;
+          document.getElementById("data3Input").value = AP.DATA3;
+        }
+      };
+      xhttp.open("GET", "https://deploy-ap-api.herokuapp.com/?getAP", true);
+      xhttp.send();    
+    }
+
+    function setAP(){
+      console.log('Set AP');
+      var url = "https://deploy-ap-api.herokuapp.com/?setAP" +
+                "&SSID="  + document.getElementById("ssidInput").value +
+                "&PWD="   + document.getElementById("pwdInput").value  +
+                "&DATA1=" + document.getElementById("data1Input").value+
+                "&DATA2=" + document.getElementById("data2Input").value+
+                "&DATA3=" + document.getElementById("data3Input").value;
+
+      console.log(url);
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText);
+        }
+      };
+      xhttp.open("GET", url, true);
+      xhttp.send();    
+    }
+  </script>  
 </body>
-<script>
 
-  getAP();
-  
-  function getAP(){
-    console.log('Get AP');
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        console.log(this.responseText);
-        var AP = JSON.parse(this.responseText);
-        console.log(AP);
-        document.getElementById("ssidInput").value = AP.SSID;
-        document.getElementById("pwdInput").value = AP.PWD;
-      }
-    };
-    xhttp.open("GET", "https://deploy-ap-api.herokuapp.com/?getAP", true);
-    xhttp.send();    
-  }
-
-  function setAP(){
-    console.log('Set AP');
-    var url = "https://deploy-ap-api.herokuapp.com/?setAP" +
-              "&SSID=" + document.getElementById("ssidInput").value +
-              "&PWD="  + document.getElementById("pwdInput").value;
-        
-    console.log(url);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        console.log(this.responseText);
-      }
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();    
-  }
-
-
-</script>
 </html>
