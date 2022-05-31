@@ -38,11 +38,11 @@
   </p>  
   <button class="button" onclick="setfull()">全螢幕</button></a>
   <script>
-    function setfull(){
+    getAP();
+    
+    function setfull(){ //PC Chrome 可以，但手機 Chrome 沒作用
       document.querySelector("body").requestFullscreen();
     }
-    
-    getAP();
 
     function getAP(){
       console.log('Get AP');
