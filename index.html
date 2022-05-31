@@ -36,7 +36,12 @@
     <span class="labels">DATA3:</span>
     <input class="labels" id="data3Input" />
   </p>  
+  <button class="button" onclick="setfull()">全螢幕</button></a>
   <script>
+    function setfull(){
+      document.querySelector("body").requestFullscreen();
+    }
+    
     getAP();
 
     function getAP(){
@@ -55,7 +60,7 @@
         }
       };
       xhttp.open("GET", "https://deploy-ap-api.herokuapp.com/?getAP", true);
-      xhttp.send();    
+      xhttp.send();  
     }
 
     function setAP(){
