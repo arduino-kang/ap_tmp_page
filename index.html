@@ -38,6 +38,8 @@
   </p>  
   <button class="button" onclick="setfull()">全螢幕</button></a>
   <script>
+    //var apiSyte = "https://deploy-ap-api.herokuapp.com/"
+    var apiSite = "https://makerkang.com:4500/";
     getAP();
     
     function setfull(){ //PC Chrome 可以，但手機 Chrome 沒作用
@@ -59,13 +61,13 @@
           document.getElementById("data3Input").value = AP.DATA3;
         }
       };
-      xhttp.open("GET", "https://deploy-ap-api.herokuapp.com/?getAP", true);
+      xhttp.open("GET", apiSite+"?getAP", true);
       xhttp.send();  
     }
 
     function setAP(){
       console.log('Set AP');
-      var url = "https://deploy-ap-api.herokuapp.com/?setAP" +
+      var url = "apiSite+"?setAP" +
                 "&SSID="  + document.getElementById("ssidInput").value +
                 "&PWD="   + document.getElementById("pwdInput").value  +
                 "&DATA1=" + document.getElementById("data1Input").value+
